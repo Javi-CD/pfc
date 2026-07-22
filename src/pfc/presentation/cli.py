@@ -89,9 +89,9 @@ def list_formats():
 
     for converter in converters:
         if isinstance(converter, CsvToJsonConverter):
-            console.print("  CSV  → JSON")
+            console.print("  CSV  -> JSON")
         elif isinstance(converter, JsonToCsvConverter):
-            console.print("  JSON → CSV")
+            console.print("  JSON -> CSV")
         else:
             console.print(f"  {converter.__class__.__name__}")
 

@@ -15,9 +15,6 @@ dev = [
     "ruff>=0.15.22",
 ]
 
-[project.scripts]
-pfc = "pfc.presentation.cli:app"
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

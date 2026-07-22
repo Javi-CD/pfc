@@ -1,5 +1,4 @@
 import pytest
-from pathlib import Path
 
 from pfc.application.conversion_registry import ConversionRegistry
 from pfc.application.converter_service import ConversionService

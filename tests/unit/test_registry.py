@@ -1,6 +1,5 @@
 import pytest
 from pathlib import Path
-from typing import Any
 
 from pfc.application.conversion_registry import ConversionRegistry
 from pfc.domain.exceptions import ConverterNotFoundError

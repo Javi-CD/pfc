@@ -1,0 +1,7 @@
+[project]
+name = "pfc"
+version = "0.0.0"
+description = "Python File Converter"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []

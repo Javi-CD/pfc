@@ -12,6 +12,9 @@ from pfc.domain.exceptions import ConversionError, ConverterNotFoundError
 from pfc.infrastructure.converters.csv_converter import CsvToJsonConverter
 from pfc.infrastructure.converters.json_converter import JsonToCsvConverter
 from pfc.infrastructure.converters.xlsx_converter import CsvToXlsxConverter, XlsxToCsvConverter
+from pfc.infrastructure.converters.image_converter import ImageConverter
+from pfc.infrastructure.converters.pdf_converter import PdfToTxtConverter, PdfToDocxConverter
+from pfc.infrastructure.converters.docx_converter import DocxToTxtConverter, TxtToDocxConverter, DocxToPdfConverter
 
 app = typer.Typer(
     name="pfc",
@@ -27,6 +30,12 @@ def get_registry() -> ConversionRegistry:
     registry.register(JsonToCsvConverter())
     registry.register(CsvToXlsxConverter())
     registry.register(XlsxToCsvConverter())
+    registry.register(ImageConverter())
+    registry.register(PdfToTxtConverter())
+    registry.register(PdfToDocxConverter())
+    registry.register(DocxToTxtConverter())
+    registry.register(TxtToDocxConverter())
+    registry.register(DocxToPdfConverter())
     return registry
 
 

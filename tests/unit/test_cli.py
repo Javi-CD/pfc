@@ -12,6 +12,12 @@ def test_list_formats():
     assert "JSON -> CSV" in result.stdout
     assert "CSV  -> XLSX" in result.stdout
     assert "XLSX -> CSV" in result.stdout
+    assert "ImageConverter" in result.stdout
+    assert "PdfToTxtConverter" in result.stdout
+    assert "PdfToDocxConverter" in result.stdout
+    assert "DocxToTxtConverter" in result.stdout
+    assert "TxtToDocxConverter" in result.stdout
+    assert "DocxToPdfConverter" in result.stdout
 
 def test_info_command(tmp_path):
     test_file = tmp_path / "test.txt"

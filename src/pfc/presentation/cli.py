@@ -9,12 +9,7 @@ from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn, TimeEl
 from pfc.application.conversion_registry import ConversionRegistry
 from pfc.application.converter_service import ConversionService
 from pfc.domain.exceptions import ConversionError, ConverterNotFoundError
-from pfc.infrastructure.converters.csv_converter import CsvToJsonConverter
-from pfc.infrastructure.converters.json_converter import JsonToCsvConverter
-from pfc.infrastructure.converters.xlsx_converter import CsvToXlsxConverter, XlsxToCsvConverter
-from pfc.infrastructure.converters.image_converter import ImageConverter
-from pfc.infrastructure.converters.pdf_converter import PdfToTxtConverter, PdfToDocxConverter
-from pfc.infrastructure.converters.docx_converter import DocxToTxtConverter, TxtToDocxConverter, DocxToPdfConverter
+import importlib.metadata
 
 app = typer.Typer(
     name="pfc",
@@ -26,18 +21,21 @@ console = Console()
 
 def get_registry() -> ConversionRegistry:
     registry = ConversionRegistry()
-    registry.register(CsvToJsonConverter())
-    registry.register(JsonToCsvConverter())
-    registry.register(CsvToXlsxConverter())
-    registry.register(XlsxToCsvConverter())
-    registry.register(ImageConverter())
-    registry.register(PdfToTxtConverter())
-    registry.register(PdfToDocxConverter())
-    registry.register(DocxToTxtConverter())
-    registry.register(TxtToDocxConverter())
-    registry.register(DocxToPdfConverter())
-    return registry
+    try:
+        eps = importlib.metadata.entry_points(group="pfc.converters")
+    except TypeError:
+        # Fallback for older python, though we require >= 3.13
+        eps_dict = importlib.metadata.entry_points()
+        eps = getattr(eps_dict, "get", lambda k, d: [])("pfc.converters", [])  # type: ignore
 
+    for ep in eps:
+        try:
+            converter_class = ep.load()
+            registry.register(converter_class())
+        except Exception as e:
+            console.print(f"[yellow]Warning: Failed to load plugin {ep.name}: {e}[/yellow]")
+
+    return registry
 
 def get_service() -> ConversionService:
     return ConversionService(get_registry())
@@ -176,11 +174,11 @@ def batch(
 
 @app.command()
 def list_formats():
-    """List all supported format conversions."""
+    """List all loaded converters."""
     registry = get_registry()
     converters = registry.get_all()
 
-    console.print("[bold]Supported conversions:[/]")
+    console.print("[bold]Loaded converters:[/]")
     console.print()
 
     if not converters:
@@ -188,16 +186,31 @@ def list_formats():
         return
 
     for converter in converters:
-        if isinstance(converter, CsvToJsonConverter):
-            console.print("  CSV  -> JSON")
-        elif isinstance(converter, JsonToCsvConverter):
-            console.print("  JSON -> CSV")
-        elif isinstance(converter, CsvToXlsxConverter):
-            console.print("  CSV  -> XLSX")
-        elif isinstance(converter, XlsxToCsvConverter):
-            console.print("  XLSX -> CSV")
-        else:
-            console.print(f"  {converter.__class__.__name__}")
+        console.print(f"  - {converter.__class__.__name__}")
+
+
+@app.command()
+def plugins():
+    """List all registered plugins."""
+    try:
+        eps = importlib.metadata.entry_points(group="pfc.converters")
+    except TypeError:
+        eps_dict = importlib.metadata.entry_points()
+        eps = getattr(eps_dict, "get", lambda k, d: [])("pfc.converters", [])  # type: ignore
+
+    console.print("[bold]Registered Plugins:[/bold]")
+    console.print()
+
+    if not eps:
+        console.print("No plugins found.")
+        return
+
+    for ep in eps:
+        try:
+            ep.load()
+            console.print(f"  [green]✓[/green] [cyan]{ep.name}[/cyan] ({ep.value})")
+        except Exception as e:
+            console.print(f"  [red]✗[/red] [red]{ep.name}[/red] ({ep.value}) - Error: {e}")
 
 
 @app.command()

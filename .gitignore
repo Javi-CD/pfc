@@ -12,3 +12,6 @@ wheels/
 # Internal documentation and AI instructions
 AGENT.md
 Planning/
+
+# Mock data
+mocks/

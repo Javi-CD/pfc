@@ -1,6 +1,6 @@
 [project]
 name = "pfc"
-version = "0.3.0"
+version = "0.4.0"
 description = "Python File Converter"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -14,6 +14,18 @@ dependencies = [
     "rich>=15.0.0",
     "typer>=0.12.0",
 ]
+
+[project.entry-points."pfc.converters"]
+csv_to_json = "pfc.infrastructure.converters.csv_converter:CsvToJsonConverter"
+json_to_csv = "pfc.infrastructure.converters.json_converter:JsonToCsvConverter"
+csv_to_xlsx = "pfc.infrastructure.converters.xlsx_converter:CsvToXlsxConverter"
+xlsx_to_csv = "pfc.infrastructure.converters.xlsx_converter:XlsxToCsvConverter"
+image_converter = "pfc.infrastructure.converters.image_converter:ImageConverter"
+pdf_to_txt = "pfc.infrastructure.converters.pdf_converter:PdfToTxtConverter"
+pdf_to_docx = "pfc.infrastructure.converters.pdf_converter:PdfToDocxConverter"
+docx_to_txt = "pfc.infrastructure.converters.docx_converter:DocxToTxtConverter"
+txt_to_docx = "pfc.infrastructure.converters.docx_converter:TxtToDocxConverter"
+docx_to_pdf = "pfc.infrastructure.converters.docx_converter:DocxToPdfConverter"
 
 [project.scripts]
 pfc = "pfc.presentation.cli:app"

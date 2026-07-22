@@ -10,6 +10,8 @@ def test_list_formats():
     assert "Supported conversions:" in result.stdout
     assert "CSV  -> JSON" in result.stdout
     assert "JSON -> CSV" in result.stdout
+    assert "CSV  -> XLSX" in result.stdout
+    assert "XLSX -> CSV" in result.stdout
 
 def test_info_command(tmp_path):
     test_file = tmp_path / "test.txt"

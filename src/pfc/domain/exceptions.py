@@ -21,3 +21,13 @@ class InvalidInputFileError(ConversionError):
 class OutputFileExistsError(ConversionError):
     """Raised when the destination file already exists and overwrite is disabled."""
     pass
+
+
+class SecurityViolationError(ConversionError):
+    """Raised when a security constraint is violated (MIME type mismatch, Path Traversal, etc.)."""
+    pass
+
+
+class FileTooLargeError(SecurityViolationError):
+    """Raised when the input file exceeds the maximum allowed size."""
+    pass

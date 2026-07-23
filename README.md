@@ -107,7 +107,7 @@ View all formats supported:
 
 ```bash
 pfc list-formats
-
+```
 
 Convert a single file:
 

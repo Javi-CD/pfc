@@ -1,9 +1,11 @@
+import os
 from dataclasses import dataclass
 from pathlib import Path
-import os
+
 import filetype  # type: ignore
 
 from pfc.domain.exceptions import FileTooLargeError, SecurityViolationError
+
 
 @dataclass(frozen=True)
 class SecurityConfig:

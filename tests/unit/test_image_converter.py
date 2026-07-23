@@ -1,6 +1,9 @@
 from pathlib import Path
+
 from PIL import Image
+
 from pfc.infrastructure.converters.image_converter import ImageConverter
+
 
 def test_image_converter_supports():
     converter = ImageConverter()

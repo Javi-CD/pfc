@@ -1,4 +1,3 @@
-from typing import List
 
 from pfc.domain.exceptions import ConverterNotFoundError
 from pfc.domain.protocols import Converter
@@ -6,7 +5,7 @@ from pfc.domain.protocols import Converter
 
 class ConversionRegistry:
     def __init__(self) -> None:
-        self._converters: List[Converter] = []
+        self._converters: list[Converter] = []
 
     def register(self, converter: Converter) -> None:
         """Register a new converter in the registry."""
@@ -19,6 +18,6 @@ class ConversionRegistry:
                 return converter
         raise ConverterNotFoundError(f"No converter found for {source_format} -> {target_format}")
 
-    def get_all(self) -> List[Converter]:
+    def get_all(self) -> list[Converter]:
         """Return all registered converters."""
         return list(self._converters)

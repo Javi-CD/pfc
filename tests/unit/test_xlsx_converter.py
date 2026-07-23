@@ -5,7 +5,10 @@ import pytest
 from openpyxl import Workbook, load_workbook
 
 from pfc.domain.exceptions import ConversionError
-from pfc.infrastructure.converters.xlsx_converter import CsvToXlsxConverter, XlsxToCsvConverter
+from pfc.infrastructure.converters.xlsx_converter import (
+    CsvToXlsxConverter,
+    XlsxToCsvConverter,
+)
 
 
 def test_csv_to_xlsx_converter(tmp_path: Path) -> None:

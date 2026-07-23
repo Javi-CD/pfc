@@ -1,6 +1,13 @@
 from pathlib import Path
+
 from docx import Document
-from pfc.infrastructure.converters.docx_converter import DocxToTxtConverter, TxtToDocxConverter, DocxToPdfConverter
+
+from pfc.infrastructure.converters.docx_converter import (
+    DocxToPdfConverter,
+    DocxToTxtConverter,
+    TxtToDocxConverter,
+)
+
 
 def test_docx_to_txt(tmp_path: Path):
     docx_file = tmp_path / "test.docx"

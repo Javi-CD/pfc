@@ -1,9 +1,11 @@
 import json
+
 import pytest
 
+from pfc.domain.exceptions import ConversionError
 from pfc.infrastructure.converters.csv_converter import CsvToJsonConverter
 from pfc.infrastructure.converters.json_converter import JsonToCsvConverter
-from pfc.domain.exceptions import ConversionError
+
 
 def test_csv_to_json_converter(tmp_path):
     csv_file = tmp_path / "test.csv"

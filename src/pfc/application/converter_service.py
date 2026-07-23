@@ -1,6 +1,5 @@
 import logging
 from pathlib import Path
-from typing import Optional
 
 from pfc.application.conversion_registry import ConversionRegistry
 from pfc.domain.exceptions import InvalidInputFileError, OutputFileExistsError
@@ -19,7 +18,7 @@ class ConversionService:
     def __init__(
         self,
         registry: ConversionRegistry,
-        security_config: Optional[SecurityConfig] = None,
+        security_config: SecurityConfig | None = None,
     ) -> None:
         self._registry = registry
         self._security_config = security_config or SecurityConfig()

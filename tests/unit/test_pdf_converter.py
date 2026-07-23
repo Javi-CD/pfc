@@ -1,4 +1,8 @@
-from pfc.infrastructure.converters.pdf_converter import PdfToTxtConverter, PdfToDocxConverter
+from pfc.infrastructure.converters.pdf_converter import (
+    PdfToDocxConverter,
+    PdfToTxtConverter,
+)
+
 
 def test_pdf_to_txt_supports():
     converter = PdfToTxtConverter()

@@ -1,15 +1,21 @@
+import importlib.metadata
 import sys
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
 import typer
 from rich.console import Console
-from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
+from rich.progress import (
+    BarColumn,
+    Progress,
+    SpinnerColumn,
+    TextColumn,
+    TimeElapsedColumn,
+)
 
 from pfc.application.conversion_registry import ConversionRegistry
 from pfc.application.converter_service import ConversionService
 from pfc.domain.exceptions import ConversionError, ConverterNotFoundError
-import importlib.metadata
 
 app = typer.Typer(
     name="pfc",

@@ -54,3 +54,6 @@ dev = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.ruff.lint]
+ignore = ["B008", "BLE001", "PERF402", "RUF012", "UP035", "UP006", "UP045", "PIE790", "I001"]
